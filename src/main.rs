@@ -1,12 +1,13 @@
-use file_to_text::Config;
-use std::env;
+use clap::Parser;
+use file_to_text::{App, Config};
+
 fn main() {
-    let conf = Config::from_cli(env::args());
-    match conf {
-        Config::Encode(_) => {
+    let conf = App::parse();
+    match conf.mode {
+        Config::Encode{..} => {
             print!("{}", conf.encode());
         },
-        Config::Decode(_, _) => {
+        Config::Decode{..} => {
             conf.decode();
             print!("decode success")
         }
